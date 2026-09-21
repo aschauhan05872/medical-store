@@ -165,7 +165,7 @@ db.serialize(function () {
 });
 
 function seedCatalog() {
-  db.get('SELECT COUNT(*) AS count FROM products WHERE slug IS NOT NULL AND slug != ""', [], function (err, row) {
+  db.get("SELECT COUNT(*) AS count FROM products WHERE slug IS NOT NULL AND slug != ''", [], function (err, row) {
     if (err) return;
     if (!row || row.count < seedMedicines.length) {
       db.run('DELETE FROM products', [], function () {
