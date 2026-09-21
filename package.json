@@ -1,0 +1,16 @@
+{
+  "name": "medical-store",
+  "version": "1.0.0",
+  "description": "Elite medical concierge and white-glove door-shipment delivery portal",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "multer": "^1.4.5-lts.1",
+    "sqlite3": "^5.1.7"
+  }
+}

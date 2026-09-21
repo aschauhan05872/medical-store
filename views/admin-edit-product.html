@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Medicine | Med Doorshipp</title>
+  <link rel="stylesheet" href="/css/luxury.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <main class="admin-main">
+    <div class="container-shell">
+      <div class="admin-page-head">
+        <h1 class="admin-page-title">Edit Medicine</h1>
+        <a href="/admin-dashboard" class="btn-ghost btn-sm">Back to Dashboard</a>
+      </div>
+      <section class="admin-panel" aria-label="Edit product">
+        <!-- CURRENT_IMAGE -->
+        <form action="/admin/products/<!-- PRODUCT_ID -->/edit" method="POST" enctype="multipart/form-data" class="admin-product-form">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" value="<!-- VALUE_title -->" required>
+          <label for="original_price_usd">Original Price (USD)</label>
+          <input type="number" id="original_price_usd" name="original_price_usd" step="0.01" min="0" value="<!-- VALUE_original_price_usd -->" required>
+          <label for="price_usd">Discounted Price (USD)</label>
+          <input type="number" id="price_usd" name="price_usd" step="0.01" min="0" value="<!-- VALUE_price_usd -->" required>
+          <label for="stock_quantity">Stock Quantity <span class="admin-help-inline">(leave blank if you don't want to track stock)</span></label>
+          <input type="number" id="stock_quantity" name="stock_quantity" step="1" min="0" value="<!-- VALUE_stock_quantity -->">
+          <label for="category">Category</label>
+          <select id="category" name="category">
+            <option value="prescription"<!-- SELECTED_prescription -->>Prescription</option>
+            <option value="pain-relief"<!-- SELECTED_pain-relief -->>Pain Relief</option>
+            <option value="wellness"<!-- SELECTED_wellness -->>Wellness</option>
+          </select>
+          <label for="dosage_strength">Dosage Strength</label>
+          <input type="text" id="dosage_strength" name="dosage_strength" value="<!-- VALUE_dosage_strength -->" required>
+          <label for="description">Description</label>
+          <textarea id="description" name="description" required><!-- VALUE_description --></textarea>
+          <label for="precautions">Medical Precautions</label>
+          <textarea id="precautions" name="precautions" required><!-- VALUE_precautions --></textarea>
+          <label for="image">Replace Product Image <span class="admin-help-inline">(leave blank to keep current image)</span></label>
+          <input type="file" id="image" name="image" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml">
+          <button type="submit">Save Changes</button>
+        </form>
+      </section>
+    </div>
+  </main>
+  <!-- FOOTER -->
+</body>
+</html>

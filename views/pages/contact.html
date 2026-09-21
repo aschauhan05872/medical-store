@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | Med Doorshipp</title>
+  <link rel="stylesheet" href="/css/luxury.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <main class="static-page section-padding">
+    <div class="container-shell static-content">
+      <p class="page-eyebrow">Help</p>
+      <h1>Contact Us</h1>
+      <p class="editorial-lead">Our dedicated pharmacy concierge team is available to assist with medication inquiries, order coordination, and delivery scheduling.</p>
+
+      <div class="static-grid">
+        <section>
+          <h2>Patient Support</h2>
+          <p>Email: <a class="text-link" href="mailto:support@meddoorshipp.com">support@meddoorshipp.com</a></p>
+          <p>Phone: <a class="text-link" href="tel:+18005551234">+1 (800) 555-1234</a></p>
+          <p>Hours: Monday–Friday, 8:00 AM – 8:00 PM ET</p>
+        </section>
+        <section>
+          <h2>Clinical Inquiries</h2>
+          <p>For dosage questions, drug interactions, or precaution clarifications, our licensed pharmacy liaisons will connect you with appropriate clinical guidance.</p>
+          <p>Email: <a class="text-link" href="mailto:clinical@meddoorshipp.com">clinical@meddoorshipp.com</a></p>
+        </section>
+      </div>
+
+      <form class="contact-form checkout-form" action="/contact" method="POST">
+        <h2>Send a Message</h2>
+        <div class="form-grid form-grid-2">
+          <div><label class="form-label" for="name">Full name</label><input type="text" id="name" name="name" required></div>
+          <div><label class="form-label" for="email">Email</label><input type="email" id="email" name="email" required></div>
+          <div class="form-grid-span-2"><label class="form-label" for="message">Message</label><textarea id="message" name="message" rows="5" required placeholder="How can our pharmacy team assist you?"></textarea></div>
+        </div>
+        <button type="submit" class="btn-primary">Send Message</button>
+      </form>
+    </div>
+  </main>
+  <!-- FOOTER -->
+</body>
+</html>

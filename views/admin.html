@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Dashboard | Med Doorshipp</title>
+  <link rel="stylesheet" href="/css/luxury.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <main class="admin-main">
+    <div class="container-shell">
+      <div class="admin-page-head">
+        <h1 class="admin-page-title">Executive Distribution Dashboard</h1>
+        <a href="/admin-logout" class="btn-ghost btn-sm">Log Out</a>
+      </div>
+
+      <section class="admin-panel" aria-label="Inventory management">
+        <h2>Add Medicine</h2>
+        <p class="admin-help">Enter prices in <strong>USD</strong> for the default <strong>Pack of 180</strong>. Pack of 90 and 360 are calculated automatically on the storefront.</p>
+        <form action="/admin/add-product" method="POST" enctype="multipart/form-data" class="admin-product-form">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" required>
+          <label for="original_price_usd">Original Price (USD)</label>
+          <input type="number" id="original_price_usd" name="original_price_usd" step="0.01" min="0" required>
+          <label for="price_usd">Discounted Price (USD)</label>
+          <input type="number" id="price_usd" name="price_usd" step="0.01" min="0" required>
+          <label for="stock_quantity">Stock Quantity <span class="admin-help-inline">(leave blank if you don't want to track stock)</span></label>
+          <input type="number" id="stock_quantity" name="stock_quantity" step="1" min="0">
+          <label for="category">Category</label>
+          <select id="category" name="category">
+            <option value="prescription">Prescription</option>
+            <option value="pain-relief">Pain Relief</option>
+            <option value="wellness">Wellness</option>
+          </select>
+          <label for="dosage_strength">Dosage Strength</label>
+          <input type="text" id="dosage_strength" name="dosage_strength" required>
+          <label for="description">Description</label>
+          <textarea id="description" name="description" required></textarea>
+          <label for="precautions">Medical Precautions</label>
+          <textarea id="precautions" name="precautions" required></textarea>
+          <label for="image">Product Image</label>
+          <input type="file" id="image" name="image" accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml">
+          <button type="submit">Add to Catalog</button>
+        </form>
+      </section>
+
+      <section class="admin-panel" aria-label="Product catalog">
+        <h2>Manage Catalog</h2>
+        <!-- PRODUCTS_PLACEHOLDER -->
+      </section>
+
+      <section class="admin-panel" aria-label="Orders">
+        <h2>Orders</h2>
+        <p class="admin-help">Update status and add a tracking number when an order ships — customers can then look it up on the <a href="/track">Track Order</a> page using their order number and email.</p>
+        <div class="admin-orders-list">
+          <!-- LEADS_PLACEHOLDER -->
+        </div>
+      </section>
+    </div>
+  </main>
+  <!-- FOOTER -->
+</body>
+</html>

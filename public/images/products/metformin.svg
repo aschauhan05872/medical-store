@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Metformin tablets">
+  <rect width="400" height="500" fill="#EFF6FF"/>
+  <rect x="60" y="80" width="280" height="340" rx="12" fill="#FFFFFF" stroke="#0B2545" stroke-width="2"/>
+  <rect x="90" y="120" width="220" height="80" rx="6" fill="#059669" opacity="0.15"/>
+  <text x="200" y="170" text-anchor="middle" fill="#0B2545" font-family="Inter,sans-serif" font-size="22" font-weight="700">Metformin</text>
+  <text x="200" y="200" text-anchor="middle" fill="#059669" font-family="Inter,sans-serif" font-size="14">500mg ER · 60 tablets</text>
+  <g transform="translate(100,240)">
+    <rect width="60" height="28" rx="4" fill="#0B2545" opacity="0.08"/>
+    <rect x="80" width="60" height="28" rx="4" fill="#0B2545" opacity="0.08"/>
+    <rect x="160" width="60" height="28" rx="4" fill="#0B2545" opacity="0.08"/>
+    <rect y="40" width="60" height="28" rx="4" fill="#0B2545" opacity="0.08"/>
+    <rect x="80" y="40" width="60" height="28" rx="4" fill="#0B2545" opacity="0.08"/>
+    <rect x="160" y="40" width="60" height="28" rx="4" fill="#0B2545" opacity="0.08"/>
+  </g>
+  <circle cx="320" cy="60" r="24" fill="#059669" opacity="0.2"/>
+  <rect x="308" y="48" width="24" height="24" rx="2" fill="#059669"/>
+</svg>

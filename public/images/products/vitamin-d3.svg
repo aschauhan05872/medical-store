@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Vitamin D3 softgels">
+  <rect width="400" height="500" fill="#EFF6FF"/>
+  <rect x="60" y="80" width="280" height="340" rx="12" fill="#FFFFFF" stroke="#0B2545" stroke-width="2"/>
+  <text x="200" y="155" text-anchor="middle" fill="#0B2545" font-family="Inter,sans-serif" font-size="20" font-weight="700">Vitamin D3</text>
+  <text x="200" y="185" text-anchor="middle" fill="#059669" font-family="Inter,sans-serif" font-size="14">5000 IU · 90 softgels</text>
+  <g transform="translate(155,240)">
+    <ellipse cx="30" cy="25" rx="22" ry="14" fill="#F59E0B" opacity="0.5"/>
+    <ellipse cx="90" cy="25" rx="22" ry="14" fill="#F59E0B" opacity="0.5"/>
+    <ellipse cx="30" cy="75" rx="22" ry="14" fill="#F59E0B" opacity="0.35"/>
+    <ellipse cx="90" cy="75" rx="22" ry="14" fill="#F59E0B" opacity="0.35"/>
+  </g>
+  <text x="200" y="380" text-anchor="middle" fill="#64748B" font-family="Inter,sans-serif" font-size="12">Wellness Supplement</text>
+</svg>

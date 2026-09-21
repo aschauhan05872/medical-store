@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track Your Order | Med Doorshipp</title>
+  <link rel="stylesheet" href="/css/luxury.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <main class="page-centered section-padding">
+    <div class="container-shell">
+      <div class="track-page">
+        <h1>Track Your Order</h1>
+        <p class="editorial-lead">Enter your Order Number (shown on your confirmation page, e.g. MD-000123) and the email you used at checkout.</p>
+        <form action="/track" method="POST" class="track-form">
+          <label for="order_number">Order Number</label>
+          <input type="text" id="order_number" name="order_number" value="<!-- VALUE_order_number -->" placeholder="MD-000123" required>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" value="<!-- VALUE_email -->" required>
+          <button type="submit" class="btn-primary" data-processing-label="Looking up…">Track Order</button>
+        </form>
+        <!-- TRACK_RESULT -->
+      </div>
+    </div>
+  </main>
+  <!-- FOOTER -->
+</body>
+</html>

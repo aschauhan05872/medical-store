@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Med Doorshipp</title>
+  <link rel="stylesheet" href="/css/luxury.css">
+</head>
+<body>
+  <!-- HEADER -->
+
+  <main class="checkout-page">
+    <div class="container-shell">
+      <h1>Checkout</h1>
+      <p class="editorial-lead">Complete your pharmacy dispensation and door-delivery details. Our team will contact you to finalize your order securely.</p>
+      <div class="checkout-layout">
+        <aside class="checkout-summary" aria-label="Order summary">
+          <h2>Your Selection</h2>
+          <!-- ORDER_SUMMARY -->
+        </aside>
+        <div class="checkout-main">
+          <form class="checkout-form" id="checkout-form" action="/submit-order" method="POST" novalidate>
+            <div id="checkout-form-error" class="checkout-form-error" role="alert" hidden><!-- CHECKOUT_FORM_ERROR --></div>
+
+            <input type="hidden" id="product_id" name="product_id" value="<!-- PRODUCT_ID -->">
+
+            <section class="form-section" aria-labelledby="contact-heading">
+              <h2 id="contact-heading" class="form-section-title">Contact</h2>
+              <div class="form-grid form-grid-2">
+                <div class="form-grid-span-2">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" id="email" name="email" required autocomplete="email"
+                    value="<!-- VALUE_email -->"
+                    class="<!-- CLASS_email -->"
+                    title="Enter a valid email address (e.g. you@example.com)">
+                  <span id="email_error" class="field-error" hidden><!-- ERROR_email --></span>
+                </div>
+                <div class="form-grid-span-2">
+                  <label for="contact_number" class="form-label">Phone</label>
+                  <input type="tel" id="contact_number" name="contact_number" required autocomplete="tel"
+                    value="<!-- VALUE_contact_number -->"
+                    class="<!-- CLASS_contact_number -->"
+                    pattern="[\d\s().+\-]{7,30}"
+                    title="Enter a valid phone number with at least 10 digits">
+                  <span id="contact_number_error" class="field-error" hidden><!-- ERROR_contact_number --></span>
+                </div>
+                <div class="form-grid-span-2">
+                  <label for="secondary_phone" class="form-label">Secondary phone (optional)</label>
+                  <input type="tel" id="secondary_phone" name="secondary_phone" autocomplete="tel"
+                    value="<!-- VALUE_secondary_phone -->"
+                    class="<!-- CLASS_secondary_phone -->"
+                    pattern="[\d\s().+\-]{7,30}"
+                    title="Enter a valid phone number with at least 10 digits">
+                  <span id="secondary_phone_error" class="field-error" hidden><!-- ERROR_secondary_phone --></span>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section" aria-labelledby="shipping-heading">
+              <h2 id="shipping-heading" class="form-section-title">Shipping Address</h2>
+              <div class="form-grid form-grid-2">
+                <div>
+                  <label for="first_name" class="form-label">First name</label>
+                  <input type="text" id="first_name" name="first_name" required minlength="2" autocomplete="shipping given-name"
+                    value="<!-- VALUE_first_name -->"
+                    class="<!-- CLASS_first_name -->">
+                  <span id="first_name_error" class="field-error" hidden><!-- ERROR_first_name --></span>
+                </div>
+                <div>
+                  <label for="last_name" class="form-label">Last name</label>
+                  <input type="text" id="last_name" name="last_name" required minlength="2" autocomplete="shipping family-name"
+                    value="<!-- VALUE_last_name -->"
+                    class="<!-- CLASS_last_name -->">
+                  <span id="last_name_error" class="field-error" hidden><!-- ERROR_last_name --></span>
+                </div>
+                <div class="form-grid-span-2">
+                  <label for="shipping_street" class="form-label">Address</label>
+                  <input type="text" id="shipping_street" name="shipping_street" required autocomplete="shipping address-line1"
+                    value="<!-- VALUE_shipping_street -->"
+                    class="<!-- CLASS_shipping_street -->"
+                    title="Enter a valid street address starting with a number (e.g. 123 Main Street)">
+                  <span id="shipping_street_error" class="field-error" hidden><!-- ERROR_shipping_street --></span>
+                </div>
+                <div class="form-grid-span-2">
+                  <label for="shipping_line2" class="form-label">Apartment, suite, etc. (optional)</label>
+                  <input type="text" id="shipping_line2" name="shipping_line2" autocomplete="shipping address-line2"
+                    value="<!-- VALUE_shipping_line2 -->">
+                </div>
+                <div>
+                  <label for="shipping_city" class="form-label">City</label>
+                  <input type="text" id="shipping_city" name="shipping_city" required minlength="2" autocomplete="shipping address-level2"
+                    value="<!-- VALUE_shipping_city -->"
+                    class="<!-- CLASS_shipping_city -->">
+                  <p id="shipping_city_hint" class="field-hint" hidden></p>
+                  <span id="shipping_city_error" class="field-error" hidden><!-- ERROR_shipping_city --></span>
+                </div>
+                <div>
+                  <label for="shipping_state" class="form-label">State</label>
+                  <select id="shipping_state" name="shipping_state" required class="<!-- CLASS_shipping_state -->">
+                    <option value="">Select state</option><!-- US_STATES_OPTIONS -->
+                  </select>
+                  <span id="shipping_state_error" class="field-error" hidden><!-- ERROR_shipping_state --></span>
+                </div>
+                <div>
+                  <label for="shipping_postal" class="form-label">ZIP code</label>
+                  <input type="text" id="shipping_postal" name="shipping_postal" required pattern="\d{5}(-\d{4})?"
+                    value="<!-- VALUE_shipping_postal -->"
+                    class="<!-- CLASS_shipping_postal -->"
+                    title="Enter a valid ZIP code (e.g. 02108)">
+                  <span id="shipping_postal_error" class="field-error" hidden><!-- ERROR_shipping_postal --></span>
+                </div>
+                <div>
+                  <label for="shipping_country" class="form-label">Country</label>
+                  <input type="text" id="shipping_country" name="shipping_country" value="United States" readonly>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section billing-section" aria-labelledby="billing-heading">
+              <h2 id="billing-heading" class="form-section-title">Billing Address</h2>
+              <input type="checkbox" id="billing_same_as_shipping" name="billing_same_as_shipping" class="billing-same-toggle" <!-- BILLING_SAME_CHECKED -->>
+              <label class="checkbox-label" for="billing_same_as_shipping"><span>Billing address same as shipping</span></label>
+              <div id="billing-fields" class="billing-fields">
+                <div class="form-grid form-grid-2" style="margin-top:1.5rem;">
+                  <div>
+                    <label for="billing_first_name" class="form-label">First name</label>
+                    <input type="text" id="billing_first_name" name="billing_first_name"
+                      value="<!-- VALUE_billing_first_name -->">
+                  </div>
+                  <div>
+                    <label for="billing_last_name" class="form-label">Last name</label>
+                    <input type="text" id="billing_last_name" name="billing_last_name"
+                      value="<!-- VALUE_billing_last_name -->">
+                  </div>
+                  <div class="form-grid-span-2">
+                    <label for="billing_street" class="form-label">Address</label>
+                    <input type="text" id="billing_street" name="billing_street"
+                      value="<!-- VALUE_billing_street -->"
+                      class="<!-- CLASS_billing_street -->"
+                      title="Enter a valid street address starting with a number (e.g. 123 Main Street)">
+                    <span id="billing_street_error" class="field-error" hidden><!-- ERROR_billing_street --></span>
+                  </div>
+                  <div class="form-grid-span-2">
+                    <label for="billing_line2" class="form-label">Apartment, suite, etc.</label>
+                    <input type="text" id="billing_line2" name="billing_line2"
+                      value="<!-- VALUE_billing_line2 -->">
+                  </div>
+                  <div>
+                    <label for="billing_city" class="form-label">City</label>
+                    <input type="text" id="billing_city" name="billing_city"
+                      value="<!-- VALUE_billing_city -->"
+                      class="<!-- CLASS_billing_city -->">
+                    <p id="billing_city_hint" class="field-hint" hidden></p>
+                    <span id="billing_city_error" class="field-error" hidden><!-- ERROR_billing_city --></span>
+                  </div>
+                  <div>
+                    <label for="billing_state" class="form-label">State</label>
+                    <select id="billing_state" name="billing_state" class="<!-- CLASS_billing_state -->">
+                      <option value="">Select state</option><!-- US_STATES_OPTIONS -->
+                    </select>
+                    <span id="billing_state_error" class="field-error" hidden><!-- ERROR_billing_state --></span>
+                  </div>
+                  <div>
+                    <label for="billing_postal" class="form-label">ZIP code</label>
+                    <input type="text" id="billing_postal" name="billing_postal" pattern="\d{5}(-\d{4})?"
+                      value="<!-- VALUE_billing_postal -->"
+                      class="<!-- CLASS_billing_postal -->"
+                      title="Enter a valid ZIP code (e.g. 02108)">
+                    <span id="billing_postal_error" class="field-error" hidden><!-- ERROR_billing_postal --></span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <h2 class="form-section-title">Shipping Method</h2>
+              <label class="shipping-option"><input type="radio" name="shipping_method" value="standard" checked><span><span class="shipping-option-title">Standard Shipping</span><span class="shipping-option-desc">Delivery estimate provided when your order ships.</span></span></label>
+            </section>
+
+            <section class="form-section">
+              <h2 class="form-section-title">Order Notes</h2>
+              <textarea id="order_notes" name="order_notes" rows="4" placeholder="Delivery notes or special instructions"><!-- VALUE_order_notes --></textarea>
+            </section>
+
+            <section class="form-section">
+              <h2 class="form-section-title">Before You Continue</h2>
+              <label class="checkbox-label"><input type="checkbox" id="terms_accepted" name="terms_accepted" required <!-- TERMS_CHECKED -->><span>I agree to the <a href="/terms" class="text-link">Terms</a>, <a href="/privacy" class="text-link">Privacy Policy</a>, and <a href="/refund-policy" class="text-link">Refund Policy</a>.</span></label>
+              <label class="checkbox-label muted" style="margin-top:1rem;"><input type="checkbox" id="marketing_consent" name="marketing_consent" <!-- MARKETING_CHECKED -->><span>Send me occasional wellness updates from Med Doorshipp.</span></label>
+            </section>
+
+            <button type="submit" class="btn-primary checkout-submit" data-processing-label="Submitting…">Complete Your Order Request</button>
+          </form>
+        </div>
+      </div>
+      <a class="back-link" href="/cart">Return to cart</a>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <script src="/js/us-cities.js"></script>
+  <script src="/js/checkout-validation.js"></script>
+</body>
+</html>
