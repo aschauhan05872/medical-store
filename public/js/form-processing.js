@@ -68,7 +68,11 @@
     })
       .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
       .then(function (result) {
-        if (!result.ok || !result.data || !result.data.ok) throw new Error('cart-add-failed');
+        if (!result.ok || !result.data || !result.data.ok) {
+          var err = new Error('cart-add-failed');
+          err.serverReason = result.data && result.data.error;
+          throw err;
+        }
         updateCartBadges(result.data.cartCount);
         if (button) {
           button.textContent = button.dataset.addedLabel || 'Added ✓';
@@ -86,14 +90,19 @@
           }
         }, 1800);
       })
-      .catch(function () {
+      .catch(function (err) {
         if (button) {
           button.disabled = false;
           button.textContent = 'Try Again';
         }
         if (note) {
+          var reasonText = {
+            not_found: 'This item is no longer available. Please refresh the page.',
+            out_of_stock: 'This item just went out of stock.',
+            db_error: 'A server error occurred — please try again in a moment.'
+          }[err && err.serverReason] || 'Could not add to cart — please try again.';
           note.hidden = false;
-          note.textContent = 'Could not add to cart — please try again.';
+          note.textContent = reasonText;
           note.classList.add('cart-qty-note-error');
         }
       });

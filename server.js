@@ -573,8 +573,11 @@ app.post('/cart/add', function (req, res) {
   var isAjax = req.get('X-Requested-With') === 'fetch';
   db.get('SELECT * FROM products WHERE id = ?', [productId], function (err, p) {
     var redirect = req.body.redirect || req.get('Referer') || '/cart';
+    if (err) console.error('cart/add db.get error:', err);
     if (err || !p || isOutOfStock(p)) {
-      if (isAjax) return res.status(400).json({ ok: false, error: 'unavailable' });
+      var reason = err ? 'db_error' : (!p ? 'not_found' : 'out_of_stock');
+      console.error('cart/add rejected: productId=' + productId + ' reason=' + reason);
+      if (isAjax) return res.status(400).json({ ok: false, error: reason });
       return res.redirect(redirect);
     }
     var stock = stockValue(p);
