@@ -75,7 +75,8 @@
                 </div>
                 <div class="form-grid-span-2">
                   <label for="shipping_street" class="form-label">Address</label>
-                  <input type="text" id="shipping_street" name="shipping_street" required autocomplete="shipping address-line1"
+                  <input type="text" id="shipping_street" name="shipping_street" required minlength="5" autocomplete="shipping address-line1"
+                    pattern="\d+\s+[A-Za-z0-9\s.,#'\-]{2,}"
                     value="<!-- VALUE_shipping_street -->"
                     class="<!-- CLASS_shipping_street -->"
                     title="Enter a valid street address starting with a number (e.g. 123 Main Street)">
@@ -134,7 +135,8 @@
                   </div>
                   <div class="form-grid-span-2">
                     <label for="billing_street" class="form-label">Address</label>
-                    <input type="text" id="billing_street" name="billing_street"
+                    <input type="text" id="billing_street" name="billing_street" minlength="5"
+                      pattern="\d+\s+[A-Za-z0-9\s.,#'\-]{2,}"
                       value="<!-- VALUE_billing_street -->"
                       class="<!-- CLASS_billing_street -->"
                       title="Enter a valid street address starting with a number (e.g. 123 Main Street)">

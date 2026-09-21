@@ -46,6 +46,59 @@
     });
   }
 
+  function updateCartBadges(count) {
+    document.querySelectorAll('.cart-badge').forEach(function (el) {
+      el.textContent = String(count);
+    });
+  }
+
+  function handleAjaxCartAdd(form) {
+    var button = form.querySelector('[type="submit"]');
+    var originalLabel = button ? button.textContent.trim() : '';
+    var note = document.querySelector('[data-cart-note-for="' + (form.getAttribute('data-product-id') || '') + '"]');
+    if (button) {
+      button.disabled = true;
+      button.textContent = button.dataset.processingLabel || 'Adding…';
+    }
+    fetch(form.getAttribute('action'), {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'X-Requested-With': 'fetch' },
+      credentials: 'same-origin'
+    })
+      .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+      .then(function (result) {
+        if (!result.ok || !result.data || !result.data.ok) throw new Error('cart-add-failed');
+        updateCartBadges(result.data.cartCount);
+        if (button) {
+          button.textContent = button.dataset.addedLabel || 'Added ✓';
+          button.classList.add('btn-added');
+        }
+        if (note) {
+          note.hidden = false;
+          note.textContent = result.data.quantityInCart + ' in cart';
+        }
+        setTimeout(function () {
+          if (button) {
+            button.disabled = false;
+            button.textContent = originalLabel;
+            button.classList.remove('btn-added');
+          }
+        }, 1800);
+      })
+      .catch(function () {
+        if (button) {
+          button.disabled = false;
+          button.textContent = 'Try Again';
+        }
+        if (note) {
+          note.hidden = false;
+          note.textContent = 'Could not add to cart — please try again.';
+          note.classList.add('cart-qty-note-error');
+        }
+      });
+  }
+
   document.addEventListener('submit', function (e) {
     if (e.defaultPrevented) return;
     var form = e.target;
@@ -53,6 +106,11 @@
     var confirmMsg = form.getAttribute('data-confirm');
     if (confirmMsg && !window.confirm(confirmMsg)) {
       e.preventDefault();
+      return;
+    }
+    if (form.classList.contains('ajax-cart-form')) {
+      e.preventDefault();
+      handleAjaxCartAdd(form);
       return;
     }
     if (form.hasAttribute('data-no-processing')) return;

@@ -350,11 +350,12 @@ function buildCatalogCard(p) {
   var addToCartControl = outOfStock
     ? '<button type="button" class="btn-primary" disabled>Out of Stock</button>'
     : (
-      '<form action="/cart/add" method="POST" class="inline-form">' +
+      '<form action="/cart/add" method="POST" class="inline-form ajax-cart-form" data-product-id="' + p.id + '">' +
         '<input type="hidden" name="product_id" value="' + p.id + '">' +
-        '<input type="hidden" name="quantity" value="1">' +
         '<input type="hidden" name="pack_size" value="' + DEFAULT_PACK + '">' +
-        '<button type="submit" class="btn-primary" data-processing-label="Adding…">Add to Cart</button>' +
+        '<label class="qty-mini-label" for="qty-' + p.id + '">Qty</label>' +
+        '<input type="number" id="qty-' + p.id + '" name="quantity" value="1" min="1" max="99" class="qty-mini-input">' +
+        '<button type="submit" class="btn-primary" data-processing-label="Adding…" data-added-label="Added ✓">Add to Cart</button>' +
       '</form>'
     );
   return (
@@ -369,7 +370,9 @@ function buildCatalogCard(p) {
         '<div class="product-actions">' +
           '<a href="/product/' + p.id + '" class="btn-secondary">View Details</a>' +
           addToCartControl +
-        '</div></div></article>'
+        '</div>' +
+        '<p class="cart-qty-note" data-cart-note-for="' + p.id + '" hidden></p>' +
+      '</div></article>'
   );
 }
 
@@ -564,10 +567,16 @@ app.get('/product/:id', function (req, res) {
 app.post('/cart/add', function (req, res) {
   var productId = parseInt(req.body.product_id, 10);
   var quantity = parseInt(req.body.quantity, 10) || 1;
+  if (quantity < 1) quantity = 1;
+  if (quantity > 99) quantity = 99;
   var packSize = normalizePackSize(req.body.pack_size);
+  var isAjax = req.get('X-Requested-With') === 'fetch';
   db.get('SELECT * FROM products WHERE id = ?', [productId], function (err, p) {
     var redirect = req.body.redirect || req.get('Referer') || '/cart';
-    if (err || !p || isOutOfStock(p)) return res.redirect(redirect);
+    if (err || !p || isOutOfStock(p)) {
+      if (isAjax) return res.status(400).json({ ok: false, error: 'unavailable' });
+      return res.redirect(redirect);
+    }
     var stock = stockValue(p);
     var cart = getCart(req);
     var existing = cart.find(function (c) {
@@ -575,9 +584,21 @@ app.post('/cart/add', function (req, res) {
     });
     var nextQty = (existing ? existing.quantity : 0) + quantity;
     if (stock !== null && nextQty > stock) nextQty = stock;
-    if (nextQty <= 0) return res.redirect(redirect);
+    if (nextQty <= 0) {
+      if (isAjax) return res.status(400).json({ ok: false, error: 'out_of_stock' });
+      return res.redirect(redirect);
+    }
     if (existing) existing.quantity = nextQty;
     else cart.push({ product_id: productId, quantity: nextQty, pack_size: packSize });
+    if (isAjax) {
+      return res.json({
+        ok: true,
+        cartCount: getCartCount(req),
+        productId: productId,
+        packSize: packSize,
+        quantityInCart: nextQty
+      });
+    }
     res.redirect(redirect);
   });
 });
@@ -802,10 +823,11 @@ function buildAdminOrdersHtml(leads) {
           '<span class="order-status-badge order-status-' + escapeHtml(status) + '">' + escapeHtml(ORDER_STATUS_LABELS[status] || status) + '</span>' +
         '</div>' +
         '<div class="admin-order-body">' +
-          '<p><strong>' + escapeHtml(name) + '</strong> · ' + escapeHtml(lead.timestamp) + '</p>' +
-          '<p>' + escapeHtml(lead.email) + ' · ' + escapeHtml(lead.contact_number) + '</p>' +
-          '<p>Ship to: ' + escapeHtml(lead.shipping_street) + ', ' + escapeHtml(lead.shipping_city) + ', ' + escapeHtml(lead.shipping_state) + ' ' + escapeHtml(lead.shipping_postal) + ', ' + escapeHtml(lead.shipping_country) + '</p>' +
-          '<p>' + escapeHtml(lead.product_title || 'Multiple items') + (lead.product_price ? ' · ' + formatPriceUsd(lead.product_price) : '') + '</p>' +
+          '<p><span class="admin-order-field-label">Customer:</span> ' + escapeHtml(name) + '</p>' +
+          '<p><span class="admin-order-field-label">Placed:</span> ' + escapeHtml(lead.timestamp) + '</p>' +
+          '<p><span class="admin-order-field-label">Contact:</span> ' + escapeHtml(lead.email) + ' · ' + escapeHtml(lead.contact_number) + '</p>' +
+          '<p><span class="admin-order-field-label">Ship to:</span> ' + escapeHtml(lead.shipping_street) + ', ' + escapeHtml(lead.shipping_city) + ', ' + escapeHtml(lead.shipping_state) + ' ' + escapeHtml(lead.shipping_postal) + ', ' + escapeHtml(lead.shipping_country) + '</p>' +
+          '<p><span class="admin-order-field-label">Item:</span> ' + escapeHtml(lead.product_title || 'Multiple items') + (lead.product_price ? ' · ' + formatPriceUsd(lead.product_price) : '') + '</p>' +
         '</div>' +
         '<form action="/admin/orders/' + lead.id + '/update" method="POST" class="admin-order-update-form">' +
           '<label>Status<select name="status">' + buildOrderStatusOptions(status) + '</select></label>' +
